@@ -2,17 +2,21 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from demostration_solution.dao.model.genre import Genre
-from demostration_solution.dao.genre import GenreDAO
-from demostration_solution.service.genre import GenreService
+from dao.model.genre import Genre
+from dao.genre import GenreDAO
+from service.genre import GenreService
 
 
 @pytest.fixture()
 def genre_dao():
     genre_dao = GenreDAO(None)
 
-    genre_dao.get_one = MagicMock(return_value="Ужасы")
-    genre_dao.get_all = MagicMock(return_value=["Ужасы", "Боевик", "Детектив"])
+    horrors = Genre(id=1, name='Ужасы')
+    action = Genre(id=2, name='Боевик')
+    detective = Genre(id=3, name='Детектив')
+
+    genre_dao.get_one = MagicMock(return_value=horrors)
+    genre_dao.get_all = MagicMock(return_value=[horrors, action, detective])
     genre_dao.create = MagicMock(return_value=Genre(id=3))
     genre_dao.delete = MagicMock()
     genre_dao.update = MagicMock()

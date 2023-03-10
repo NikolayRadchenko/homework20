@@ -2,17 +2,21 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from demostration_solution.dao.model.movie import Movie
-from demostration_solution.dao.movie import MovieDAO
-from demostration_solution.service.movie import MovieService
+from dao.model.movie import Movie
+from dao.movie import MovieDAO
+from service.movie import MovieService
 
 
 @pytest.fixture()
 def movie_dao():
     movie_dao = MovieDAO(None)
 
-    movie_dao.get_one = MagicMock(return_value="Йеллоустоун")
-    movie_dao.get_all = MagicMock(return_value=["Йеллоустоун", "Вооружен и очень опасен", "Переступить черту"])
+    movie_1 = Movie(id=1, title='Йеллоустоун', year=2018, rating=8.6)
+    movie_2 = Movie(id=1, title='Омерзительная восьмерка', year=2015, rating=7.8)
+    movie_3 = Movie(id=1, title='Вооружен и очень опасен', year=1978, rating=6)
+
+    movie_dao.get_one = MagicMock(return_value=movie_1)
+    movie_dao.get_all = MagicMock(return_value=[movie_1, movie_2, movie_3])
     movie_dao.create = MagicMock(return_value=Movie(id=3))
     movie_dao.delete = MagicMock()
     movie_dao.update = MagicMock()
